@@ -4,11 +4,9 @@ import {Image} from 'react-native-elements';
 import * as firebase from 'firebase';
 
 
-
-
 export default function ListItems(props){
 
- const {items,isLoading,handlerLoadMore} = props;
+ const {items,isLoading} = props;
 
     return(
          <View>

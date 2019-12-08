@@ -7,9 +7,7 @@ import {firebaseApp} from '../../utils/Firebase';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 const db = firebase.firestore(firebaseApp);
-import {validateAutenticate} from '../../utils/api/Api';
 import ListItems from '../../components/listitems/ListItems';
-import { totalmem } from 'os';
 
 
 export default function Home(props){
@@ -57,41 +55,11 @@ export default function Home(props){
         })()
     }, [])
 
-
- /*   handlerLoadMore = async () => {
-        const resultRestaurantes = [];
-        resultItems.length < totalmem && setIsloading(true);
-
-        const restaurantsDb =db
-        .collection("App/Info/Detalle")
-        .orderBy("creteAt","desc")
-        .startAfter(startItems.data().creteAt)
-        .limit(limiteItems);
-
-        await restaurantsDb.get().then(response => {
-                if(response.docs.length > 0){
-                    setStartItems(response.docs[response.docs.length - 1]);
-                }else{
-                    setIsloading(false);
-                }
-
-                response.forEach(doc => {
-                    let restaurant  = doc.data();
-                    restaurant.id = doc.id;
-                    resultRestaurantes.push({restaurant});
-                });
-
-                setItems([...items,...resultRestaurantes]);
-        })
-    };
-
-    */
     return(
         <View style={styles.viewBody}>
             <ListItems
             items={items}
             isLoading={isLoading}
-            handlerLoadMore={handlerLoadMore}
             />
             {user && (
             <AddRestaurantesbutton
