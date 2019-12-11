@@ -9,8 +9,12 @@ import AppText from '../../utils/text/text.all';
 export default function AddRestaurantes (props){
 
     const {navigation} = props;
+    const {setIsreload} = navigation.state.params;
     const [isLoading, setIsLoading] = useState(false);
     const toastRef = useRef();
+
+
+    console.log(navigation);
 
     return(
         <View>
@@ -18,6 +22,7 @@ export default function AddRestaurantes (props){
             navigation={navigation}
             toastRef={toastRef}
             setIsLoading={setIsLoading}
+            setIsreload={setIsreload}
             />
 
             <Toast

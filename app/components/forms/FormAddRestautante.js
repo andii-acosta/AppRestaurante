@@ -18,7 +18,7 @@ const WidthScreen = Dimensions.get("window").width;
 
 export default function FormAddRestaurante(props){
 
-    const { navigation,toastRef,setIsLoading} = props;
+    const { navigation,toastRef,setIsLoading,setIsreload} = props;
     const [imagesSelected, setImagesSelected] = useState([]);
     const [titulo, setTitulo] = useState("");
     const [fecha, setFecha] = useState("");
@@ -59,6 +59,7 @@ export default function FormAddRestaurante(props){
                     createBy:firebaseApp.auth().currentUser.uid
                 }).then(() =>{
                     setIsVisibleLoading(false);
+                    setIsreload(true);
                     navigation.navigate("Home");
                    }
                 ).catch((error) =>{

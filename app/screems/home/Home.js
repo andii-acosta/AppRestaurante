@@ -9,7 +9,6 @@ import 'firebase/firestore';
 const db = firebase.firestore(firebaseApp);
 import ListItems from '../../components/listitems/ListItems';
 
-
 export default function Home(props){
 
     const [user,setUser] = useState(null);
@@ -18,6 +17,8 @@ export default function Home(props){
     const [items,setItems] = useState({});
     const [startItems,setStartItems] = useState(null);
     const [isLoading,setIsloading] = useState(false);
+    const [totalItems,setTotalItems] = useState(false);
+    const [isreload,setIsreload] = useState(false);
     const limiteItems = 6;
 
     useEffect(() => {
@@ -30,8 +31,8 @@ export default function Home(props){
         db.collection("App/Info/Detalle")
         .get()
         .then(snap => {
-            setTotalitems(snap.size);
-            console.log(snap.size);
+            setTotalItems(snap.size);
+            //console.log(snap.size);
         });
 
         (async () => {
@@ -52,18 +53,54 @@ export default function Home(props){
             setItems(resultItems);
             
         });
-        })()
-    }, [])
+        })();
+        setIsreload(false);
+    }, [isreload])
+
+    const handlerLoadMore = async () => {
+
+        const resultRestaurantes = [];
+         
+        items.length < totalItems && setIsloading(true);
+
+        const restaurantDb = db.collection()
+        .orderBy("creteAt","desc")
+        .startAfter(startItems)
+        .limit(limiteItems);
+        
+        await restaurantDb.get()
+        .then(response => {
+            if(response.length > 0){
+                 setStartItems(Response.docs[response.docs.length - 1]);
+
+            } else {
+                setIsloading(false);
+            }
+
+            response.forEach(doc => {
+                let restaurant= doc.data();
+                restaurant.id = dioc.id;
+                resultRestaurantes.push({restaurant});
+            });
+
+            setItems([...items,...resultRestaurantes]);
+        })
+    
+    }
+
 
     return(
         <View style={styles.viewBody}>
             <ListItems
             items={items}
             isLoading={isLoading}
+            handlerLoadMore={handlerLoadMore}
+            navigation={navigation}
             />
             {user && (
             <AddRestaurantesbutton
             navigation={navigation}
+            setIsreload={setIsreload}
             />)}
             
         </View>
@@ -71,11 +108,13 @@ export default function Home(props){
 }
 
 function AddRestaurantesbutton(props){
-    const {navigation} = props;
+    const {navigation,setIsreload} = props;
     return(
         <ActionButton
         buttonColor={AppStyles.SECONDARY_COLOR}
-        onPress={() => {navigation.navigate("AddRestaurante")}}
+        onPress={() => 
+            navigation.navigate("AddRestaurante",{setIsreload})
+        }
         />
     );
 }

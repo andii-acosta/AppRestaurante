@@ -6,18 +6,18 @@ import * as firebase from 'firebase';
 
 export default function ListItems(props){
 
- const {items,isLoading} = props;
+ const {items,isLoading,handlerLoadMore,navigation} = props;
 
     return(
          <View>
              {items ? (
                  <FlatList
                  data={items}
-                 renderItem={restaurant =>  <Mycard restaurant={restaurant} /> }
+                 renderItem={restaurant =>  <Mycard restaurant={restaurant} navigation={navigation} /> }
                  keyExtractor={(itm,index) =>{index.toString()}}
-                 //onEndReached={handlerLoadMore}
+                 onEndReached={handlerLoadMore}
                  onEndReachedThreshold={0}
-                 //ListFooterComponent={<FooterList isLoading={isLoading}/>}
+                // ListFooterComponent={<FooterList isLoading={isLoading}/>}
                  />
              ) : (
                  <View style={styles.loaderRestaurant}>
@@ -34,7 +34,7 @@ export default function ListItems(props){
 
 function Mycard (props){
 
-    const {restaurant} = props;
+    const {restaurant,navigation} = props;
      
     const {name,location,image,description} = restaurant.item.restautant;
 
@@ -45,16 +45,16 @@ function Mycard (props){
         const images= image[0];
         firebase.storage().ref(`Photos/Galeria/Detalle/${images}`).getDownloadURL()
         .then(result => {
-            console.log(result);
+           // console.log(result);
             setImageRestaurant(result);
         })
     }, [])
 
-    console.log(restaurant);
+    //console.log(restaurant);
 
     return(
         <TouchableOpacity
-        onPress={() => {console.log("seleccion rest")}}
+        onPress={() => navigation.navigate("Detalle",{restaurant})}
         >
             <View style={styles.viewCard}>
                  
@@ -82,7 +82,6 @@ function Mycard (props){
         </TouchableOpacity>
     );
 }
-
 
 function FooterList(props){
 

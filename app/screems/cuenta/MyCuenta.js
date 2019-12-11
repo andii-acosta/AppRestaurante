@@ -23,6 +23,4 @@ return (
 
 return login ? <UserLogged/> : <UserGuest/>
 
-
-
 }
