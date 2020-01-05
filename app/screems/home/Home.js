@@ -21,6 +21,8 @@ export default function Home(props){
     const [isreload,setIsreload] = useState(false);
     const limiteItems = 6;
 
+    console.log("restaurantes: "  + items );
+
     useEffect(() => {
         firebase.auth().onAuthStateChanged(userInfo => {
             setUser(userInfo);
@@ -49,6 +51,7 @@ export default function Home(props){
                 let restautant = doc.data();
                 restautant.id = doc.id;
                 resultItems.push({restautant});
+
             });
             setItems(resultItems);
             
@@ -88,6 +91,7 @@ export default function Home(props){
     
     }
 
+    
 
     return(
         <View style={styles.viewBody}>

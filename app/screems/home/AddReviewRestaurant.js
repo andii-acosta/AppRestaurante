@@ -1,11 +1,13 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import {StyleSheet,View,Text} from 'react-native'; 
 import {AirbnbRating,Button,Input} from 'react-native-elements';
+import Toast from 'react-native-easy-toast';
 
 
 export default function AddReviewRestaurant(props){
 
     const {navigation} = props;
+    const toastRef=useRef();
 
     const {idrestaurant} = navigation.state.params;
     const [rating, setRating] = useState(null);
@@ -14,12 +16,21 @@ export default function AddReviewRestaurant(props){
     const [coment,setComent]= useState("");
 
     const addReview = () =>{
+     console.log(titulos);
      console.log(rating);
+     console.log(coment);
 
-     
-
-
+     if(rating === null){
+        toastRef.current.show("El rating no puede ser cero");
+     }else if(!titulos){
+     toastRef.current.show("El titulo no puede estar vacio");
+     }else if(!coment){
+        toastRef.current.show("El comentario no puede estar vacio");
+     }else{
+        toastRef.current.show("COMENTARIO ENVIADO OK");
+     }
     }
+
 
     return(
         <View style={styles.viewBody}>
@@ -53,6 +64,9 @@ export default function AddReviewRestaurant(props){
                 buttonStyle={styles.btnstyles}
                 />
             </View>
+            <Toast
+            ref={toastRef}
+            position="center" opacity={0.7}/>
         </View>
     
     );

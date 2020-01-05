@@ -5,8 +5,6 @@ import BannerCarousel from '../../components/banner-carrusel/BannerCarousel';
 import {Rating} from 'react-native-elements';
 import ListReview from '../../components/listreviews/ListReview';
 
-
-
 const anchodisplay = Dimensions.get("window").width;
 
 export default function Detalle(props){
@@ -25,7 +23,10 @@ export default function Detalle(props){
     console.log("id : "+ id);
 
 
-    
+    console.log("_____________________________");
+    console.log(JSON.stringify(imageRestaurant));
+    console.log("*****************************");
+    console.log(JSON.stringify(img));
    useEffect(() => {
        const arryUrl= [];
 

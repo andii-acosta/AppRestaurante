@@ -14,7 +14,7 @@ export default function ListItems(props){
                  <FlatList
                  data={items}
                  renderItem={restaurant =>  <Mycard restaurant={restaurant} navigation={navigation} /> }
-                 keyExtractor={(itm,index) =>{index.toString()}}
+                 keyExtractor={(itm,index) =>{return index.toString()}}
                  onEndReached={handlerLoadMore}
                  onEndReachedThreshold={0}
                 // ListFooterComponent={<FooterList isLoading={isLoading}/>}

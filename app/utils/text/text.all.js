@@ -12,16 +12,17 @@ export default {
   INPUT_CORREO_LABEL: "Correo",
 
   INPUT_CONTRASENA_ICON:"at",
-
 //-----------TEXTOS PARA BOTONES --------------------
   BOTON_CREAR_CUENTA:"Crear Cuenta",
   BOTON_LOGIND:"Ingresar",
   BOTON_VER_PERFIL:"Ver Perfil",
   BOTON_EXIST:"Cerrar Session",
-  BOTON_TYPE:"solid",
+  
+  BOTON_DETALLE:"ver Detalles",
 
+  BOTON_TYPE:"solid",
   //-------------Loading text ----------------
-    TEXT_SHOW_PROCESS: "Procesando ...",
+  TEXT_SHOW_PROCESS: "Procesando ...",
 
   //------------FACEBOOK ------------
   ID_FACEBOOK: "1006507323075344"
